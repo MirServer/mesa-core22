@@ -32,11 +32,18 @@ parts:
     plugin: nil
     stage-packages:
       - libgl1-mesa-dri
+      - libegl-mesa0
+      - libdrm-intel1
       - mesa-vulkan-drivers
       - libglx-mesa0
     prime:
       - usr/lib/${SNAPCRAFT_ARCH_TRIPLET}/dri
       - usr/lib/${SNAPCRAFT_ARCH_TRIPLET}/libdrm_*
+      - usr/lib/${SNAPCRAFT_ARCH_TRIPLET}/libEGL_*
+      - usr/lib/${SNAPCRAFT_ARCH_TRIPLET}/libGLX_*
+      - usr/lib/${SNAPCRAFT_ARCH_TRIPLET}/libpciaccess*
+      - usr/lib/${SNAPCRAFT_ARCH_TRIPLET}/libvulkan_*
+      - usr/share/glvnd
       - usr/share/vulkan
       - usr/share/drirc.d
 
@@ -55,8 +62,9 @@ parts:
       - vdpau-driver-all
     prime:
       - etc/vdpau_wrapper.cfg
-      - usr/lib/${SNAPCRAFT_ARCH_TRIPLET}/libva-*
-      - usr/lib/${SNAPCRAFT_ARCH_TRIPLET}/libvdpau-*
+      - usr/lib/${SNAPCRAFT_ARCH_TRIPLET}/libigdgmm*
+      - usr/lib/${SNAPCRAFT_ARCH_TRIPLET}/libva*
+      - usr/lib/${SNAPCRAFT_ARCH_TRIPLET}/libvdpau*
       - usr/lib/${SNAPCRAFT_ARCH_TRIPLET}/vdpau
 
   dri-i386:
@@ -65,6 +73,8 @@ parts:
     stage-packages:
       - on amd64:
         - libgl1-mesa-dri:i386
+        - libegl-mesa0:i386
+        - libdrm-intel1:i386
         - mesa-vulkan-drivers:i386
         - libglx-mesa0:i386
     override-prime: |
@@ -72,6 +82,11 @@ parts:
     prime:
       - usr/lib/i386-linux-gnu/dri
       - usr/lib/i386-linux-gnu/libdrm_*
+      - usr/lib/i386-linux-gnu/libEGL_*
+      - usr/lib/i386-linux-gnu/libGLX_*
+      - usr/lib/i386-linux-gnu/libpciaccess*
+      - usr/lib/i386-linux-gnu/libvulkan_*
+      - usr/share/glvnd
       - usr/share/vulkan
       - usr/share/drirc.d
 
@@ -92,8 +107,10 @@ parts:
     override-prime: |
       if [ ${CRAFT_TARGET_ARCH} = "amd64" ]; then craftctl default; fi
     prime:
-      - usr/lib/i386-linux-gnu/libva-*
-      - usr/lib/i386-linux-gnu/libvdpau-*
+      - etc/vdpau_wrapper.cfg
+      - usr/lib/i386-linux-gnu/libigdgmm*
+      - usr/lib/i386-linux-gnu/libva*
+      - usr/lib/i386-linux-gnu/libvdpau*
       - usr/lib/i386-linux-gnu/vdpau
 
 slots:
