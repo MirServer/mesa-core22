@@ -17,18 +17,18 @@ architectures:
   - build-on: s390x
   - build-on: riscv64
 
-package-repositories:
-  - type: apt
-    url: http://archive.ubuntu.com/ubuntu/
-    suites: [jammy]
-    components: [main, universe]
-    architectures: [i386]
-    key-id: F6ECB3762474EDA9D21B7022871920D1991BC93C
-    key-server: keyserver.ubuntu.com
-
 parts:
+  i386-repo:
+    plugin: nil
+    override-pull: |
+      if [ ${CRAFT_TARGET_ARCH} = "amd64" ]; then
+        dpkg --add-architecture i386
+        apt-get update
+      fi
+
   dri:
     # Userspace drivers
+    after: [i386-repo]  # because LP#2009278
     plugin: nil
     stage-packages:
       - libgl1-mesa-dri
@@ -51,6 +51,7 @@ parts:
     # Video Acceleration APIs
     #   o libva.so.2
     #   o libvdpau.so.1
+    after: [i386-repo]  # because LP#2009278
     plugin: nil
     stage-packages:
       - libva2
@@ -69,6 +70,7 @@ parts:
 
   dri-i386:
     # Userspace drivers
+    after: [i386-repo]  # because LP#2009278
     plugin: nil
     stage-packages:
       - on amd64:
@@ -94,6 +96,7 @@ parts:
     # Video Acceleration API
     #   o libva.so.2
     #   o libvdpau.so.1
+    after: [i386-repo]  # because LP#2009278
     plugin: nil
     stage-packages:
       - on amd64:
