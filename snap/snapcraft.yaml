@@ -31,9 +31,10 @@ parts:
     after: [i386-repo]  # because LP#2009278
     plugin: nil
     stage-packages:
+      - on amd64:
+        - libdrm-intel1
       - libgl1-mesa-dri
       - libegl-mesa0
-      - libdrm-intel1
       - mesa-vulkan-drivers
       - libglx-mesa0
     prime:
