@@ -1,6 +1,8 @@
 name: Snap
 
 on:
+  push:
+    branches: [main]
   merge_group:
     types: [checks_requested]
   pull_request:
@@ -41,7 +43,7 @@ jobs:
       if: ${{ matrix.platform == 'amd64' }}
       run: |
         sudo snap install --dangerous ${{ steps.build-snap.outputs.snap-path }}
-        sudo snap install mir-test-tools --channel 24/stable
+        sudo snap install mir-test-tools --channel 24/edge
         sudo snap connect mir-test-tools:login-session-control
         sudo snap connect mir-test-tools:gpu-2404 mesa-2404
 

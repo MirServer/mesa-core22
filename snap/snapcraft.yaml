@@ -1,6 +1,7 @@
 name: mesa-2404
 license: MIT
 base: core24
+build-base: devel
 summary: Mesa libraries for core24 snaps
 description: |
   A content snap containing the mesa libraries and drivers for `base: core24` snaps.
@@ -19,7 +20,7 @@ contact: https://github.com/canonical/mesa-2404/issues
 compression: lzo
 adopt-info: dri
 
-grade: stable
+grade: devel
 confinement: strict
 
 architectures:
